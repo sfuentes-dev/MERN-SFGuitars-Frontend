@@ -1,0 +1,164 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useCreateProductMutation } from '../services/appApi'
+
+import './styles/NewProduct.css'
+
+import { Container, Row, Col, Alert, Button, Form } from 'react-bootstrap'
+import axios from '../axios.js'
+
+const NewProduct = () => {
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [brand, setBrand] = useState('')
+  const [price, setPrice] = useState('')
+  const [images, setImages] = useState([])
+  const [imgToRemove, setImgToRemove] = useState(null)
+  const [createProduct, { isError, error, isLoading, isSuccess }] =
+    useCreateProductMutation()
+
+  const navigate = useNavigate()
+
+  const handleRemoveImg = (imgObj) => {
+    setImgToRemove(imgObj.public_id)
+    axios
+      .delete(`/images/${imgObj.public_id}/`)
+      .then((res) => {
+        setImgToRemove(null)
+        setImages((prev) =>
+          prev.filter((img) => img.public_id !== imgObj.public_id)
+        )
+      })
+      .catch((e) => console.log(e))
+  }
+
+  const showWidget = () => {
+    const widget = window.cloudinary.createUploadWidget(
+      {
+        cloudName: 'sfuentes-dev16',
+        uploadPreset: 'rbl7fndi',
+      },
+      (error, result) => {
+        if (!error && result.event === 'success') {
+          setImages((prev) => [
+            ...prev,
+            { url: result.info.url, public_id: result.info.public_id },
+          ])
+        }
+      }
+    )
+    widget.open()
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (!name || !description || !price || !brand || !images.length) {
+      return alert('Please fill out all the fields')
+    }
+    createProduct({ name, description, price, brand, images }).then(
+      ({ data }) => {
+        if (data.length > 0) {
+          setTimeout(() => {
+            navigate('/')
+          }, 1500)
+        }
+      }
+    )
+  }
+
+  return (
+    <Container>
+      <Row>
+        <Col md={6} className='new-product__form--container'>
+          <Form
+            className='mt-5'
+            style={{ width: '100%' }}
+            onSubmit={handleSubmit}
+          >
+            <h1>Create a Product</h1>
+            {isSuccess && (
+              <Alert variant='success'>Product created with success!</Alert>
+            )}
+            {isError && <Alert variant='danger'>{error.data}</Alert>}
+            <Form.Group className='mb-3'>
+              <Form.Label>Product Name</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Enter your Product Name'
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group className='mb-3'>
+              <Form.Label>Product Description</Form.Label>
+              <Form.Control
+                as='textarea'
+                placeholder='Product Description'
+                style={{ height: '100px' }}
+                required
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group className='mb-3'>
+              <Form.Label>Product Price</Form.Label>
+              <Form.Control
+                type='number'
+                placeholder='Product Price'
+                required
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group
+              className='mb-3'
+              onChange={(e) => setBrand(e.target.value)}
+            >
+              <Form.Label>Brand</Form.Label>
+              <Form.Select>
+                <option disabled>-- Select One --</option>
+                <option value='gibson'>Gibson</option>
+                <option value='fender'>Fender</option>
+                <option value='prs'>PRS</option>
+                <option value='esp'>ESP</option>
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group className='mb-3'>
+              <Button type='button' onClick={showWidget}>
+                Upload Images
+              </Button>
+              <div className='images-preview-container'>
+                {images.map((image, index) => (
+                  <div key={index} className='image-preview'>
+                    <img src={image.url} />
+                    {imgToRemove != image.public_id && (
+                      <i
+                        className='fa fa-times-circle'
+                        onClick={() => handleRemoveImg(image)}
+                      ></i>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </Form.Group>
+
+            <Form.Group>
+              <Button type='submit' disabled={isLoading || isSuccess}>
+                Create Product
+              </Button>
+            </Form.Group>
+          </Form>
+        </Col>
+
+        <Col md={6} className='new-product__image--container'></Col>
+      </Row>
+    </Container>
+  )
+}
+
+export default NewProduct
