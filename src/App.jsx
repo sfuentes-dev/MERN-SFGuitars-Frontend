@@ -10,6 +10,7 @@ import NewProduct from './pages/NewProduct'
 import ProductPage from './pages/ProductPage'
 import BrandPage from './pages/BrandPage'
 import CartPage from './pages/CartPage'
+import OrderPage from './pages/OrderPage'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -36,6 +37,7 @@ function App() {
           {user && (
             <>
               <Route path='/cart' element={<CartPage />} />
+              <Route path='/orders' element={<OrderPage />} />
             </>
           )}
 

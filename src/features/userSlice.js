@@ -40,6 +40,10 @@ export const userSlice = createSlice({
       appApi.endpoints.removeFromCart.matchFulfilled,
       (_, { payload }) => payload
     )
+    builder.addMatcher(
+      appApi.endpoints.createOrder.matchFulfilled,
+      (_, { payload }) => payload
+    )
   },
 })
 
