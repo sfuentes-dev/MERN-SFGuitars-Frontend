@@ -17,7 +17,7 @@ const Home = () => {
   const lastProducts = products.slice(0, 8)
 
   useEffect(() => {
-    axios.get('/products').then(({ data }) => dispatch(updateProduct(data)))
+    axios.get('/products').then(({ data }) => dispatch(updateProducts(data)))
   }, [])
 
   return (

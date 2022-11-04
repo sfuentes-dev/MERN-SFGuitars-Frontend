@@ -1,20 +1,21 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useCreateProductMutation } from '../services/appApi'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useUpdateProductMutation } from '../services/appApi'
 
 import { Container, Row, Col, Alert, Button, Form } from 'react-bootstrap'
 import axios from '../axios.js'
+import { useEffect } from 'react'
 
-import './styles/NewProduct.css'
-const NewProduct = () => {
+const EditProductPage = () => {
+  const { id } = useParams()
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [brand, setBrand] = useState('')
   const [price, setPrice] = useState('')
   const [images, setImages] = useState([])
   const [imgToRemove, setImgToRemove] = useState(null)
-  const [createProduct, { isError, error, isLoading, isSuccess }] =
-    useCreateProductMutation()
+  const [updateProduct, { isError, error, isLoading, isSuccess }] =
+    useUpdateProductMutation()
 
   const navigate = useNavigate()
 
@@ -54,7 +55,7 @@ const NewProduct = () => {
     if (!name || !description || !price || !brand || !images.length) {
       return alert('Please fill out all the fields')
     }
-    createProduct({ name, description, price, brand, images }).then(
+    updateProduct({ id, name, description, price, brand, images }).then(
       ({ data }) => {
         if (data.length > 0) {
           setTimeout(() => {
@@ -65,6 +66,20 @@ const NewProduct = () => {
     )
   }
 
+  useEffect(() => {
+    axios
+      .get('/products/' + id)
+      .then(({ data }) => {
+        const product = data.product
+        setName(product.name)
+        setDescription(product.description)
+        setBrand(product.brand)
+        setImages(product.pictures)
+        setPrice(product.price)
+      })
+      .catch((e) => console.log(e))
+  }, [id])
+
   return (
     <Container>
       <Row>
@@ -74,10 +89,8 @@ const NewProduct = () => {
             style={{ width: '100%' }}
             onSubmit={handleSubmit}
           >
-            <h1>Create a Product</h1>
-            {isSuccess && (
-              <Alert variant='success'>Product created with success!</Alert>
-            )}
+            <h1>Edit Product</h1>
+            {isSuccess && <Alert variant='success'>Product Updated!</Alert>}
             {isError && <Alert variant='danger'>{error.data}</Alert>}
             <Form.Group className='mb-3'>
               <Form.Label>Product Name</Form.Label>
@@ -118,7 +131,7 @@ const NewProduct = () => {
               onChange={(e) => setBrand(e.target.value)}
             >
               <Form.Label>Brand</Form.Label>
-              <Form.Select defaultValue='-- Select One --'>
+              <Form.Select>
                 <option disabled>-- Select One --</option>
                 <option value='gibson'>Gibson</option>
                 <option value='fender'>Fender</option>
@@ -148,7 +161,7 @@ const NewProduct = () => {
 
             <Form.Group>
               <Button type='submit' disabled={isLoading || isSuccess}>
-                Create Product
+                Update Product
               </Button>
             </Form.Group>
           </Form>
@@ -160,4 +173,4 @@ const NewProduct = () => {
   )
 }
 
-export default NewProduct
+export default EditProductPage

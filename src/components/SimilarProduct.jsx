@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 const SimilarProduct = ({ _id, name, brand, pictures }) => {
   return (
     <LinkContainer
-      to={`/products/${_id}`}
+      to={`/product/${_id}`}
       style={{ cursor: 'pointer', width: '13rem', margin: '10px' }}
     >
       <Card style={{ width: '20rem', margin: '10px' }}>

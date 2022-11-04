@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import axio from '../axios.js'
 
-import { Badge, Container, Table } from 'react-bootstrap'
+import { Badge, Button, Container, Table } from 'react-bootstrap'
 import Loading from '../components/Loading.jsx'
 
 const OrderPage = () => {
@@ -50,19 +50,18 @@ const OrderPage = () => {
         </thead>
         <tbody>
           {orders.map((order) => (
-            <tr key={order._id}>
+            <tr>
               <td>{order._id}</td>
               <td>
                 <Badge
-                  bg={`${
-                    order.status === 'processing' ? 'warning' : 'success'
-                  }`}
+                  bg={`${order.status == 'processing' ? 'warning' : 'success'}`}
                   text='white'
                 >
                   {order.status}
                 </Badge>
               </td>
-              <td>${order.date}</td>
+              <td>{order.date}</td>
+
               <td>${order.total}</td>
             </tr>
           ))}

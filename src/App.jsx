@@ -11,6 +11,8 @@ import ProductPage from './pages/ProductPage'
 import BrandPage from './pages/BrandPage'
 import CartPage from './pages/CartPage'
 import OrderPage from './pages/OrderPage'
+import AdminDashboard from './pages/AdminDashboard'
+import EditProductPage from './pages/EditProductPage'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -38,6 +40,13 @@ function App() {
             <>
               <Route path='/cart' element={<CartPage />} />
               <Route path='/orders' element={<OrderPage />} />
+            </>
+          )}
+
+          {user && user.isAdmin && (
+            <>
+              <Route path='/admin' element={<AdminDashboard />} />
+              <Route path='/product/:id/edit' element={<EditProductPage />} />
             </>
           )}
 
