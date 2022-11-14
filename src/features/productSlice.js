@@ -29,6 +29,6 @@ export const productSlice = createSlice({
   },
 })
 
-export const { updateProduct, deleteProduct } = productSlice.actions
+export const { updateProducts, deleteProduct } = productSlice.actions
 
 export default productSlice.reducer

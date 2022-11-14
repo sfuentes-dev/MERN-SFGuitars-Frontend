@@ -7,7 +7,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 
 import './styles/Home.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateProduct } from '../features/productSlice'
+import { updateProducts } from '../features/productSlice.js'
 import ProductPreview from '../components/ProductPreview'
 import { useEffect } from 'react'
 

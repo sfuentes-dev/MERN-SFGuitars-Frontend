@@ -59,7 +59,7 @@ const CheckoutForm = () => {
   }
 
   return (
-    <Col md={7} className='cart-payment-container mt-5'>
+    <Col className='cart-payment-container mt-5'>
       <Form onSubmit={handlePay}>
         <Row>
           {alertMessage && <Alert>{alertMessage}</Alert>}

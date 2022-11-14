@@ -1,5 +1,6 @@
+import { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Home from './pages/Home'
 import ScrollToTop from './components/ScrollToTop'
@@ -13,6 +14,9 @@ import CartPage from './pages/CartPage'
 import OrderPage from './pages/OrderPage'
 import AdminDashboard from './pages/AdminDashboard'
 import EditProductPage from './pages/EditProductPage'
+import { addNotification } from './features/userSlice.js'
+
+import { io } from 'socket.io-client'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -20,6 +24,23 @@ import './App.css'
 
 function App() {
   const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const socket = io('ws://localhost:4000')
+    socket.off('notification').on('notification', (msgObj, user_id) => {
+      // logic for notification
+      if (user_id === user._id) {
+        dispatch(addNotification(msgObj))
+      }
+    })
+
+    socket.off('new-order').on('new-order', (msgObj) => {
+      if (user.isAdmin) {
+        dispatch(addNotification(msgObj))
+      }
+    })
+  }, [])
 
   return (
     <div className='App'>

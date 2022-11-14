@@ -37,7 +37,7 @@ const CartPage = () => {
   return (
     <Container style={{ minHeight: '95vh' }} className='cart-container mt-5'>
       <Row>
-        <Col md={7}>
+        <Col>
           <h1 className='pt-2 h3'>Shopping Cart</h1>
           {cart.length == 0 ? (
             <Alert variant='info'>
@@ -49,8 +49,8 @@ const CartPage = () => {
             </Elements>
           )}
         </Col>
-        <Col md={5}>
-          {cart.length > 0 && (
+        {cart.length > 0 && (
+          <Col md={5}>
             <>
               <Table responsive='sm' className='cart-table'>
                 <thead>
@@ -130,8 +130,8 @@ const CartPage = () => {
                 <h3 className='h4 pt-4'>Total: ${user.cart.total}</h3>
               </div>
             </>
-          )}
-        </Col>
+          </Col>
+        )}
       </Row>
     </Container>
   )
