@@ -22,7 +22,7 @@ const Signup = () => {
         <Row>
           <Col md={6} className='signup__form--container'>
             <Form style={{ width: '100%' }} onSubmit={handleSignup}>
-              s<h1>Create your account</h1>
+              <h1 className='mb-5'>Create your account</h1>
               {isError && <Alert variant='danger'>{error.data}</Alert>}
               <Form.Group className='mb-3'>
                 <Form.Label>Name:</Form.Label>
@@ -55,14 +55,17 @@ const Signup = () => {
                 />
               </Form.Group>
               <Form.Group>
-                <Button type='submit' disabled={isLoading}>
+                <Button variant='danger' type='submit' disabled={isLoading}>
                   Create Account
                 </Button>
               </Form.Group>
             </Form>
 
-            <p className='pt-3 text-center'>
-              Already have an account? <Link to='/login'>Login</Link>{' '}
+            <p className='pt-3 text-center fw-bold text-black'>
+              Already have an account?{' '}
+              <Link className='ms-2 btn btn-outline-danger' to='/login'>
+                Login
+              </Link>{' '}
             </p>
           </Col>
 

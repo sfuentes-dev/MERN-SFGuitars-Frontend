@@ -60,7 +60,7 @@ const Navigation = () => {
             {/* If user donnt login */}
             {!user && (
               <LinkContainer to='/login'>
-                <Nav.Link>Login</Nav.Link>
+                <Nav.Link className='btn btn-outline-danger'>Login</Nav.Link>
               </LinkContainer>
             )}
 

@@ -21,7 +21,7 @@ const Login = () => {
         <Row>
           <Col md={6} className='login__form--container'>
             <Form style={{ width: '100%' }} onSubmit={handleLogin}>
-              <h1>Login to your account</h1>
+              <h1 className='mb-5'>Login to your account</h1>
               {isError && <Alert variant='danger'>{error.data}</Alert>}
               <Form.Group className='mb-3'>
                 <Form.Label>Email Address</Form.Label>
@@ -46,14 +46,17 @@ const Login = () => {
               </Form.Group>
 
               <Form.Group className='mb-3'>
-                <Button type='submit' disabled={isLoading}>
+                <Button variant='danger' type='submit' disabled={isLoading}>
                   Login
                 </Button>
               </Form.Group>
             </Form>
 
-            <p className='pt-3 text-center'>
-              Don't have an account? <Link to='/signup'>Create Account</Link>{' '}
+            <p className='pt-3 text-center fw-bold text-black'>
+              Don't have an account?{' '}
+              <Link className='ms-2 btn btn-outline-danger' to='/signup'>
+                Create Account
+              </Link>{' '}
             </p>
           </Col>
 
