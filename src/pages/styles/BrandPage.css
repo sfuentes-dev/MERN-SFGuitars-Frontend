@@ -4,9 +4,13 @@
 
 .brand-banner-container {
   height: 200px;
-  background-color: #182e39;
+  background-color: #eeeeee;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: black;
+}
+
+.brand-banner-container span {
+  display: block;
 }

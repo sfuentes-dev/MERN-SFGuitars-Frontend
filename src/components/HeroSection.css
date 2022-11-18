@@ -1,0 +1,14 @@
+.hero {
+  position: relative;
+  background: url('../assets//images/hero-image-2.jpg');
+  min-height: 70vh;
+  background-size: cover;
+}
+
+.hero a {
+  color: #fff;
+}
+
+.hero a:hover {
+  color: #fff;
+}

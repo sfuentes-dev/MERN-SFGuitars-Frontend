@@ -1,0 +1,35 @@
+.product-inner-box img {
+  height: 350px;
+  width: 100%;
+  object-fit: contain;
+}
+
+.product-box:hover {
+  transform: scale(1.03);
+  transition: all 0.3s ease-in-out;
+}
+
+.product-name h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 10px;
+  text-align: left;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.product-price {
+  margin: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: end;
+}
+
+.product-brand h3 {
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-top: 10px;
+  text-align: left;
+  margin-left: 10px;
+}

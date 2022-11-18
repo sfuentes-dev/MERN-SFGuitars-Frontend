@@ -9,6 +9,8 @@ import persistStore from 'redux-persist/es/persistStore'
 
 const persistedStore = persistStore(store)
 
+import 'remixicon/fonts/remixicon.css'
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <React.StrictMode>

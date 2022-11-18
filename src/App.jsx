@@ -21,6 +21,7 @@ import { io } from 'socket.io-client'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './App.css'
+import Footer from './components/Footer'
 
 function App() {
   const user = useSelector((state) => state.user)
@@ -77,6 +78,7 @@ function App() {
 
           <Route path='*' element={<Home />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   )

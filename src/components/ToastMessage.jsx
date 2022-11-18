@@ -12,7 +12,7 @@ const ToastMessage = ({ bg, title, body }) => {
         bg={bg}
         onClose={() => setShow(false)}
         show={show}
-        delay={3000}
+        delay={2000}
         autohide
       >
         <Toast.Header>

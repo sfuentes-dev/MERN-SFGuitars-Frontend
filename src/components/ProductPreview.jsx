@@ -1,26 +1,37 @@
-import { Badge, Card } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import { Link } from 'react-router-dom'
 
-const ProductPreview = ({ _id, brand, name, pictures }) => {
+import './ProductPreview.css'
+
+const ProductPreview = ({ _id, brand, name, pictures, price }) => {
   return (
     <LinkContainer
       to={`/product/${_id}`}
-      style={{ cursor: 'pointer', width: '13rem', margin: '10px' }}
+      style={{
+        cursor: 'pointer',
+      }}
     >
-      <Card style={{ width: '20rem', margin: '10px' }}>
-        <Card.Img
-          variant='top'
-          className='product-previe-img'
-          src={pictures[0].url}
-          style={{ height: '150px', objectFit: 'cover' }}
-        />
-        <Card.Body>
-          <Card.Title>{name}</Card.Title>
-          <Badge bg='warning' text='dark'>
-            {brand}
-          </Badge>
-        </Card.Body>
-      </Card>
+      <div className='product-box round bg-white shadow-lg'>
+        <div className='product-inner-box position-relative'>
+          <img
+            src={pictures[0].url}
+            alt='Guitar'
+            className='img-thubnail thumbnail'
+          />
+
+          <div className='product-info'>
+            <div className='product-name'>
+              <h3>{name}</h3>
+            </div>
+            <div className='product-brand text-danger'>
+              <h3>{brand}</h3>
+            </div>
+            <div className='product-price'>
+              $ <span>{price}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </LinkContainer>
   )
 }

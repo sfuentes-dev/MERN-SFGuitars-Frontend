@@ -1,5 +1,6 @@
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
 import brands from '../brands.js'
 import axios from '../axios.js'
 
@@ -9,7 +10,10 @@ import './styles/Home.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateProducts } from '../features/productSlice.js'
 import ProductPreview from '../components/ProductPreview'
-import { useEffect } from 'react'
+import { Clock } from '../components/Clock.jsx'
+import { Hero } from '../components/Hero.jsx'
+
+import hetfield from '../assets/images/hetfield.png'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -22,15 +26,12 @@ const Home = () => {
 
   return (
     <div>
-      <img
-        src='https://www.guitarraseguitarristas.com.br/wp-content/uploads/2020/08/Les-Paul-Custom-Ebony-Les-Paul-Special-TV-Yellow-Flying-V-Ebony-Les-Paul-Standard-50sHeritage-Cherry-Sunburst-SG-61-Maestro-Cherry-Firebird-Vin.jpg'
-        className='home-banner'
-        style={{ width: '100vw' }}
-      />
-      <div className='featured-products-container container mt-4'>
-        <h2>Last Products</h2>
+      <Hero />
 
-        <div className='d-flex justify-content-center flex-wrap'>
+      <div className='featured-products-container container mt-5 mb-5'>
+        <h2 className='fw-bold'>What's New</h2>
+
+        <div className='d-flex justify-content-center flex-wrap gap-5 mt-5'>
           {lastProducts.map((product, index) => (
             <ProductPreview {...product} key={index} />
           ))}
@@ -41,24 +42,42 @@ const Home = () => {
             to='/brand/all'
             style={{
               textAlign: 'right',
-              display: 'block',
               textDecoration: 'none',
+              marginTop: 50,
             }}
+            className='btn btn-danger text-uppercase fw-bold'
           >
-            Se more {'>>'}
+            See more {'>>'}
           </Link>
         </div>
       </div>
 
-      <div className='sale_banner--container mt-4'>
-        <img
-          src='https://media.4rgos.it/i/Argos/0120-M020-PLP-8474449-guitars-desktab?qlt=75&fmt.jpeg.interlaced=true'
-          style={{ width: '100vw' }}
-        />
-      </div>
+      <section className='timer__count'>
+        <Container>
+          <Row>
+            <Col lg='6' md='6'>
+              <div className='clock__top-content' style={{ marginTop: 50 }}>
+                <h4 className='text-white fs-5 mb-2'>Limited Offer</h4>
+                <h3 className='text-white fs-3 mb-3'>ESP SnakeByte</h3>
+              </div>
+              <Clock />
+              <button type='button' className='btn btn-danger mt-5'>
+                <Link to='/brand/all'>Visit Store</Link>
+              </button>
+            </Col>
+            <Col lg='6' md='6' className='text-end'>
+              <img
+                src={hetfield}
+                alt='James Hetfield ESP Explorer'
+                style={{ objectFit: 'contain', width: 750, marginTop: 40 }}
+              />
+            </Col>
+          </Row>
+        </Container>
+      </section>
 
-      <div className='recent-products-container container mt-4'>
-        <h2>Brands</h2>
+      <div className='recent-products-container container mt-5 mb-5'>
+        <h2 className='fw-bold'>Brands</h2>
         <Row>
           {brands.map((brand, index) => (
             <LinkContainer

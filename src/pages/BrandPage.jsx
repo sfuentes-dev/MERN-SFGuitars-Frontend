@@ -36,19 +36,25 @@ const BrandPage = () => {
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
+  console.log(brand.charAt(0).toUpperCase() + brand.slice(1))
+
   return (
-    <div className='brand-page-container'>
+    <div className='brand-page-container mb-5'>
       <div className={`pt-3 ${brand}-banner-container brand-banner-container`}>
-        <h1 className='text-center'>
-          {brand.charAt(0).toUpperCase() + brand.slice(1)}
+        <h1 className='text-center fw-normal'>
+          Looking for something special?{' '}
+          <span className='text-danger fw-bold'>
+            Browse our guitar catalogue
+          </span>
         </h1>
       </div>
 
       <div className='filters-container d-flex justify-content-center pt-4 pb-4'>
         <input
           type='search'
-          placeholder='Search'
+          placeholder='Search the name of your guitar'
           onChange={(e) => setSearchTerm(e.target.value)}
+          className='form-control w-50'
         />
       </div>
 
@@ -58,7 +64,7 @@ const BrandPage = () => {
         <Container>
           <Row>
             <Col md={{ span: 10, offset: 1 }}>
-              <div className='d-flex justify-content-center align-items-center flex-wrap'>
+              <div className='d-flex justify-content-center align-items-center flex-wrap gap-5'>
                 {productsSearch.map((product, index) => (
                   <ProductPreview key={index} {...product} />
                 ))}

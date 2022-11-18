@@ -12,6 +12,8 @@ import axios from '../axios.js'
 
 import './Navigation.css'
 
+import logo from '../assets/logo.png'
+
 const Navigation = () => {
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
@@ -43,7 +45,14 @@ const Navigation = () => {
     <Navbar bg='dark' variant='dark' expand='lg'>
       <Container>
         <LinkContainer to='/'>
-          <Navbar.Brand>SF Guitars</Navbar.Brand>
+          <Navbar.Brand>
+            <img
+              src={logo}
+              alt='SF Guitars Logo'
+              style={{ width: 35, marginRight: 10 }}
+            />
+            SF Guitars
+          </Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
