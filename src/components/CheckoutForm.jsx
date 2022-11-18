@@ -25,7 +25,8 @@ const CheckoutForm = () => {
     setPaying(true)
 
     const { client_secret } = await fetch(
-      'http://localhost:4000/create-payment',
+      `${import.meta.env.VITE_BACKEND_URL}/create-payment`,
+      // 'http://localhost:4000/create-payment',
       {
         method: 'POST',
         headers: {
